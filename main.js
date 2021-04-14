@@ -1,20 +1,20 @@
 var canvas=new fabric.Canvas("myCanvas");
-hero_x=10;
-hero_y=10;
+player_x=10;
+player_y=10;
 block_image_width=30;
 block_image_height=30;
-var hero_object="";
+var player_object="";
 var block_image_object="";
-function hero_update(){
-    fabric.Image.fromURL("https://doc-00-0g-docs.googleusercontent.com/docs/securesc/197tm47srd56t2vncfhcl3lm67jhqpi6/rs0qgcm2d6h65sbm8a2qnvo445ajg6nr/1618092375000/12130465111352149128/02173251812393853356/1VDntS8HZKpir-9OIMrV7INLOQili4Pyz?authuser=0",function(Img){
-        hero_object=Img;
-        hero_object.scaleToWidth(150);
-        hero_object.scaleToHeight(140);
-        hero_object.set({
-            top:hero_y,
-            left:hero_x
+function player_update(){
+    fabric.Image.fromURL("ADV C87 2.JPG",function(Img){
+        player_object=Img;
+        player_object.scaleToWidth(150);
+        player_object.scaleToHeight(140);
+        player_object.set({
+            top:player_y,
+            left:player_x
         });
-canvas.add(hero_object);
+canvas.add(player_object);
     });
 }
 function new_image(get_image){
@@ -28,4 +28,95 @@ function new_image(get_image){
         });
         canvas.add(block_image_object);
     })
+}
+window.addEventListener("keydown",my_keydown);
+function my_keydown(e){
+    keypressed=e.keyCode;
+    console.log(keypressed);
+    if (e.shiftKey==true &&keypressed=='80'){
+        console.log("p and shift pressed together");
+        block_image_width=block_image_width+10;
+        block_image_height=block_image_height+10;
+        document.getElementById("current_width").innerHTML=block_image_width;
+        document.getElementById("current_height").innerHTML=block_image_height;
+    }
+    if (e.shiftKey==true &&keypressed=='77'){
+        console.log("m and shift pressed together");
+        block_image_width=block_image_width-10;
+        block_image_height=block_image_height-10;
+        document.getElementById("current_width").innerHTML=block_image_width;
+        document.getElementById("current_height").innerHTML=block_image_height;
+    }
+   if(keypressed=='38'){
+       up();
+       console.log("up");
+   }
+   if(keypressed=='40'){
+    down();
+    console.log("down");
+}
+if(keypressed=='37'){
+    left();
+    console.log("left");
+}
+if(keypressed=='39'){
+    right();
+    console.log("right");
+}
+if(keypressed=='70'){
+    new_image('https://i.postimg.cc/hGnyTPLB/ironman-face.png');
+    console.log("f");
+}
+if(keypressed=='66'){
+    new_image('https://i.postimg.cc/FscwL6M0/spiderman-body.png');
+    console.log("b");
+}
+if(keypressed=='76'){
+    new_image('https://i.postimg.cc/KzF6GDqt/hulk-legs.png');
+    console.log("l");
+}
+if(keypressed=='82'){
+    new_image("https://i.postimg.cc/8s8BGtwS/thor-right-hand.png");
+    console.log("r");
+}
+if(keypressed=='72'){
+    new_image("https://i.postimg.cc/rw7ckW29/captain-america-left-hand.png");
+    console.log("h");
+}
+}
+function up(){
+    if (player_y>=0){
+        player_y=player_y-block_image_height;
+        console.log("block image height=" +block_image_height);
+        console.log("when up arrow key is pressed,x=" +player_x+"y="+player_y);
+        canvas.remove(player_object);
+        player_update();
+    }
+}
+function down(){
+    if (player_y<=500){
+        player_y=player_y+block_image_height;
+        console.log("block image height=" +block_image_height);
+        console.log("when down arrow key is pressed,x=" +player_x+"y="+player_y);
+        canvas.remove(player_object);
+        player_update();
+    }
+}
+function left(){
+    if (player_x>=0){
+        player_x=player_x-block_image_width;
+        console.log("block image width=" +block_image_width);
+        console.log("when left arrow key is pressed,x=" +player_x+"y="+player_y);
+        canvas.remove(player_object);
+        player_update();
+    }
+}
+function right(){
+    if (player_x<=850){
+        player_x=player_x+block_image_width;
+        console.log("block image width=" +block_image_width);
+        console.log("when right arrow key is pressed,x=" +player_x+"y="+player_y);
+        canvas.remove(player_object);
+        player_update();
+    }
 }
